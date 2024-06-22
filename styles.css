@@ -55,7 +55,6 @@ button {
 }
 
 .current {
-    font-weight: bold;
-    background-color: yellow;
-    text-decoration: underline;
+    border-left: 2px solid black;
+    margin-left: -2px; 
 }

@@ -3,6 +3,8 @@ const timeLeft = document.getElementById('time-left');
 const wpmDisplay = document.getElementById('wpm');
 const accuracyDisplay = document.getElementById('accuracy');
 const restartBtn = document.getElementById('restart-btn');
+const restartBtnStats = document.getElementById('restart-btn-stats');
+const statsSection = document.getElementById('stats');
 
 const sentences = [
     'The quick brown fox jumps over the lazy dog.',
@@ -50,7 +52,7 @@ function displaySentence() {
         charSpan.classList.add('default');
         textDisplay.appendChild(charSpan);
     });
-    highlightCurrentCharacter(currentIndex); // Highlight the first character at the start
+    highlightCurrentCharacter(currentIndex); 
 }
 
 function startGame() {
@@ -62,6 +64,8 @@ function startGame() {
     timeLeft.textContent = time;
     wpmDisplay.textContent = 0;
     accuracyDisplay.textContent = 0;
+    statsSection.style.display = 'none'; 
+    textDisplay.style.display = 'block'; 
     interval = setInterval(updateTime, 1000);
 }
 
@@ -72,22 +76,34 @@ function updateTime() {
     } else {
         clearInterval(interval);
         calculateStats();
+        showStats();
     }
 }
 
 function calculateStats() {
     const wordsTyped = correctKeystrokes / 5;
-    const wpm = (wordsTyped / (60 - time)) * 60;
+    const wpm = (wordsTyped / 60) * 60;
     const accuracy = (correctKeystrokes / totalKeystrokes) * 100;
     
     wpmDisplay.textContent = Math.round(wpm);
     accuracyDisplay.textContent = Math.round(accuracy);
 }
 
+function showStats() {
+    statsSection.style.display = 'block'; 
+    textDisplay.style.display = 'none'; 
+}
+
 document.addEventListener('keydown', (e) => {
     const typedChar = e.key;
+    const targetChar = currentSentence[currentIndex];
 
-    // Handle backspace
+    
+    if (!typedChar.match(/^[a-zA-Z\s]$/) && typedChar !== 'Backspace') {
+        return;
+    }
+
+    
     if (typedChar === 'Backspace') {
         if (currentIndex > 0) {
             currentIndex--;
@@ -99,9 +115,6 @@ document.addEventListener('keydown', (e) => {
         return;
     }
 
-    // Handle other keys
-    const targetChar = currentSentence[currentIndex];
-    
     totalKeystrokes++;
     
     if (typedChar === targetChar) {
@@ -116,7 +129,9 @@ document.addEventListener('keydown', (e) => {
     highlightCurrentCharacter(currentIndex);
     
     if (currentIndex === currentSentence.length) {
+        clearInterval(interval);
         calculateStats();
+        showStats();
     }
 });
 
@@ -144,6 +159,11 @@ function highlightCurrentCharacter(index) {
 }
 
 restartBtn.addEventListener('click', () => {
+    clearInterval(interval);
+    startGame();
+});
+
+restartBtnStats.addEventListener('click', () => {
     clearInterval(interval);
     startGame();
 });
