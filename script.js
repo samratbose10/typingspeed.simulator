@@ -1,5 +1,4 @@
 const textDisplay = document.getElementById('text-display');
-const textInput = document.getElementById('text-input');
 const timeLeft = document.getElementById('time-left');
 const wpmDisplay = document.getElementById('wpm');
 const accuracyDisplay = document.getElementById('accuracy');
@@ -33,6 +32,7 @@ function displayWords() {
         const charSpan = document.createElement('span');
         charSpan.innerText = char;
         charSpan.id = `char-${index}`;
+        charSpan.classList.add('default');
         textDisplay.appendChild(charSpan);
     });
 }
@@ -41,9 +41,6 @@ function startGame() {
     time = 60;
     correctKeystrokes = 0;
     totalKeystrokes = 0;
-    textInput.value = '';
-    textInput.disabled = false;
-    textInput.focus();
     getRandomWords();
     timeLeft.textContent = time;
     wpmDisplay.textContent = 0;
@@ -57,7 +54,6 @@ function updateTime() {
         timeLeft.textContent = time;
     } else {
         clearInterval(interval);
-        textInput.disabled = true;
         calculateStats();
     }
 }
@@ -71,8 +67,8 @@ function calculateStats() {
     accuracyDisplay.textContent = Math.round(accuracy);
 }
 
-textInput.addEventListener('input', (e) => {
-    const typedChar = e.data;
+document.addEventListener('keydown', (e) => {
+    const typedChar = e.key;
     const targetChar = currentWords.join('')[currentIndex];
     
     totalKeystrokes++;
@@ -94,6 +90,7 @@ textInput.addEventListener('input', (e) => {
 
 function highlightCharacter(index, status) {
     const charElement = document.querySelector(`#char-${index}`);
+    charElement.classList.remove('default', 'correct', 'incorrect');
     charElement.classList.add(status);
 }
 
@@ -112,4 +109,3 @@ restartBtn.addEventListener('click', () => {
 });
 
 document.addEventListener('DOMContentLoaded', startGame);
-git 

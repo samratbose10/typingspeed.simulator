@@ -29,13 +29,7 @@ h1 {
     overflow-y: auto;
     white-space: pre-wrap;
     word-wrap: break-word;
-}
-
-#text-input {
-    font-size: 18px;
-    padding: 10px;
-    width: 80%;
-    margin-bottom: 20px;
+    color: gray;
 }
 
 .stats {
@@ -49,13 +43,18 @@ button {
 }
 
 .correct {
-    color: green;
+    color: white;
 }
 
 .incorrect {
     color: red;
 }
 
+.default {
+    color: gray;
+}
+
 .current {
-    background-color: yellow;
+    font-weight: bold;
+    opacity: 1;
 }
