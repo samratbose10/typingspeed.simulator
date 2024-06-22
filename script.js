@@ -1,63 +1,115 @@
-let startTime;
-let timerInterval;
-let isTyping = false;
+const textDisplay = document.getElementById('text-display');
+const textInput = document.getElementById('text-input');
+const timeLeft = document.getElementById('time-left');
+const wpmDisplay = document.getElementById('wpm');
+const accuracyDisplay = document.getElementById('accuracy');
+const restartBtn = document.getElementById('restart-btn');
 
-const textToTypeElement = document.getElementById('text-to-type');
-const userInput = document.getElementById('user-input');
-const timerElement = document.getElementById('timer');
-const wpmElement = document.getElementById('wpm');
-const restartButton = document.getElementById('restart-button');
+const words = [
+    'apple', 'banana', 'cherry', 'date', 'elderberry', 'fig', 'grape', 'honeydew',
+    'kiwi', 'lemon', 'mango', 'nectarine', 'orange', 'papaya', 'quince', 'raspberry',
+    'strawberry', 'tangerine', 'ugli', 'watermelon'
+];
 
-const textToType = textToTypeElement.innerText.trim();
+let currentWords = [];
+let currentIndex = 0;
+let time = 60;
+let interval;
+let correctKeystrokes = 0;
+let totalKeystrokes = 0;
 
-userInput.addEventListener('input', () => {
-    if (!isTyping) {
-        startTyping();
+function getRandomWords() {
+    currentWords = [];
+    for (let i = 0; i < 20; i++) {
+        currentWords.push(words[Math.floor(Math.random() * words.length)]);
     }
+    displayWords();
+    currentIndex = 0;
+}
 
-    const typedText = userInput.value;
+function displayWords() {
+    textDisplay.innerHTML = '';
+    currentWords.join(' ').split('').forEach((char, index) => {
+        const charSpan = document.createElement('span');
+        charSpan.innerText = char;
+        charSpan.id = `char-${index}`;
+        textDisplay.appendChild(charSpan);
+    });
+}
 
-    if (typedText === textToType.substring(0, typedText.length)) {
-        userInput.style.borderColor = 'green';
-        if (typedText === textToType) {
-            endTyping();
-        }
+function startGame() {
+    time = 60;
+    correctKeystrokes = 0;
+    totalKeystrokes = 0;
+    textInput.value = '';
+    textInput.disabled = false;
+    textInput.focus();
+    getRandomWords();
+    timeLeft.textContent = time;
+    wpmDisplay.textContent = 0;
+    accuracyDisplay.textContent = 0;
+    interval = setInterval(updateTime, 1000);
+}
+
+function updateTime() {
+    if (time > 0) {
+        time--;
+        timeLeft.textContent = time;
     } else {
-        userInput.style.borderColor = 'red';
+        clearInterval(interval);
+        textInput.disabled = true;
+        calculateStats();
+    }
+}
+
+function calculateStats() {
+    const wordsTyped = correctKeystrokes / 5;
+    const wpm = (wordsTyped / (60 - time)) * 60;
+    const accuracy = (correctKeystrokes / totalKeystrokes) * 100;
+    
+    wpmDisplay.textContent = Math.round(wpm);
+    accuracyDisplay.textContent = Math.round(accuracy);
+}
+
+textInput.addEventListener('input', (e) => {
+    const typedChar = e.data;
+    const targetChar = currentWords.join('')[currentIndex];
+    
+    totalKeystrokes++;
+    
+    if (typedChar === targetChar) {
+        highlightCharacter(currentIndex, 'correct');
+        correctKeystrokes++;
+    } else {
+        highlightCharacter(currentIndex, 'incorrect');
+    }
+    
+    currentIndex++;
+    highlightCurrentCharacter(currentIndex);
+    
+    if (currentIndex === currentWords.join('').length) {
+        calculateStats();
     }
 });
 
-restartButton.addEventListener('click', restart);
-
-function startTyping() {
-    isTyping = true;
-    startTime = new Date().getTime();
-    timerInterval = setInterval(updateTimer, 1000);
+function highlightCharacter(index, status) {
+    const charElement = document.querySelector(`#char-${index}`);
+    charElement.classList.add(status);
 }
 
-function endTyping() {
-    clearInterval(timerInterval);
-    isTyping = false;
-    const endTime = new Date().getTime();
-    const timeTaken = (endTime - startTime) / 1000;
-    const wordsTyped = textToType.split(' ').length;
-    const wpm = Math.round((wordsTyped / timeTaken) * 60);
-
-    timerElement.innerText = timeTaken.toFixed(2);
-    wpmElement.innerText = wpm;
+function highlightCurrentCharacter(index) {
+    const charElements = document.querySelectorAll('.current');
+    charElements.forEach(el => el.classList.remove('current'));
+    if (index < currentWords.join('').length) {
+        const currentElement = document.querySelector(`#char-${index}`);
+        currentElement.classList.add('current');
+    }
 }
 
-function updateTimer() {
-    const currentTime = new Date().getTime();
-    const timeElapsed = (currentTime - startTime) / 1000;
-    timerElement.innerText = timeElapsed.toFixed(2);
-}
+restartBtn.addEventListener('click', () => {
+    clearInterval(interval);
+    startGame();
+});
 
-function restart() {
-    userInput.value = '';
-    timerElement.innerText = '0';
-    wpmElement.innerText = '0';
-    userInput.style.borderColor = '#ccc';
-    clearInterval(timerInterval);
-    isTyping = false;
-}
+document.addEventListener('DOMContentLoaded', startGame);
+git 
