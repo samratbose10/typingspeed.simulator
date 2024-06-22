@@ -1,4 +1,3 @@
-
 body {
     font-family: Arial, sans-serif;
     display: flex;
@@ -44,7 +43,7 @@ button {
 }
 
 .correct {
-    color: white;
+    color: green;
 }
 
 .incorrect {
@@ -57,5 +56,6 @@ button {
 
 .current {
     font-weight: bold;
-    opacity: 1;
+    background-color: yellow;
+    text-decoration: underline;
 }

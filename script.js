@@ -4,44 +4,61 @@ const wpmDisplay = document.getElementById('wpm');
 const accuracyDisplay = document.getElementById('accuracy');
 const restartBtn = document.getElementById('restart-btn');
 
-const words = [
-    'apple', 'banana', 'cherry', 'date', 'elderberry', 'fig', 'grape', 'honeydew',
-    'kiwi', 'lemon', 'mango', 'nectarine', 'orange', 'papaya', 'quince', 'raspberry',
-    'strawberry', 'tangerine', 'ugli', 'watermelon'
+const sentences = [
+    'The quick brown fox jumps over the lazy dog.',
+    'A journey of a thousand miles begins with a single step.',
+    'To be or not to be, that is the question.',
+    'All that glitters is not gold.',
+    'The pen is mightier than the sword.',
+    'Actions speak louder than words.',
+    'A picture is worth a thousand words.',
+    'When in Rome, do as the Romans do.',
+    'The early bird catches the worm.',
+    'Better late than never.',
+    'Practice makes perfect.',
+    'An apple a day keeps the doctor away.',
+    'Early to bed and early to rise makes a man healthy, wealthy, and wise.',
+    'You can\'t judge a book by its cover.',
+    'The grass is always greener on the other side.',
+    'A watched pot never boils.',
+    'A stitch in time saves nine.',
+    'Barking up the wrong tree.',
+    'Beauty is in the eye of the beholder.',
+    'Birds of a feather flock together.'
 ];
 
-let currentWords = [];
+let currentSentence = '';
 let currentIndex = 0;
 let time = 60;
 let interval;
 let correctKeystrokes = 0;
 let totalKeystrokes = 0;
+let incorrectKeystrokes = 0;
 
-function getRandomWords() {
-    currentWords = [];
-    for (let i = 0; i < 20; i++) {
-        currentWords.push(words[Math.floor(Math.random() * words.length)]);
-    }
-    displayWords();
+function getRandomSentence() {
+    currentSentence = sentences[Math.floor(Math.random() * sentences.length)];
+    displaySentence();
     currentIndex = 0;
 }
 
-function displayWords() {
+function displaySentence() {
     textDisplay.innerHTML = '';
-    currentWords.join(' ').split('').forEach((char, index) => {
+    currentSentence.split('').forEach((char, index) => {
         const charSpan = document.createElement('span');
         charSpan.innerText = char;
         charSpan.id = `char-${index}`;
         charSpan.classList.add('default');
         textDisplay.appendChild(charSpan);
     });
+    highlightCurrentCharacter(currentIndex); // Highlight the first character at the start
 }
 
 function startGame() {
     time = 60;
     correctKeystrokes = 0;
     totalKeystrokes = 0;
-    getRandomWords();
+    incorrectKeystrokes = 0;
+    getRandomSentence();
     timeLeft.textContent = time;
     wpmDisplay.textContent = 0;
     accuracyDisplay.textContent = 0;
@@ -69,7 +86,21 @@ function calculateStats() {
 
 document.addEventListener('keydown', (e) => {
     const typedChar = e.key;
-    const targetChar = currentWords.join('')[currentIndex];
+
+    // Handle backspace
+    if (typedChar === 'Backspace') {
+        if (currentIndex > 0) {
+            currentIndex--;
+            const previousCharElement = document.querySelector(`#char-${currentIndex}`);
+            previousCharElement.classList.remove('current', 'incorrect', 'correct');
+            previousCharElement.classList.add('default');
+            highlightCurrentCharacter(currentIndex);
+        }
+        return;
+    }
+
+    // Handle other keys
+    const targetChar = currentSentence[currentIndex];
     
     totalKeystrokes++;
     
@@ -78,12 +109,13 @@ document.addEventListener('keydown', (e) => {
         correctKeystrokes++;
     } else {
         highlightCharacter(currentIndex, 'incorrect');
+        incorrectKeystrokes++;
     }
-    
+
     currentIndex++;
     highlightCurrentCharacter(currentIndex);
     
-    if (currentIndex === currentWords.join('').length) {
+    if (currentIndex === currentSentence.length) {
         calculateStats();
     }
 });
@@ -101,7 +133,7 @@ function highlightCharacter(index, status) {
 function highlightCurrentCharacter(index) {
     const charElements = document.querySelectorAll('.current');
     charElements.forEach(el => el.classList.remove('current'));
-    if (index < currentWords.join('').length) {
+    if (index < currentSentence.length) {
         const currentElement = document.querySelector(`#char-${index}`);
         if (currentElement) {
             currentElement.classList.add('current');
