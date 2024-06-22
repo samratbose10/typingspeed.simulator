@@ -90,8 +90,12 @@ document.addEventListener('keydown', (e) => {
 
 function highlightCharacter(index, status) {
     const charElement = document.querySelector(`#char-${index}`);
-    charElement.classList.remove('default', 'correct', 'incorrect');
-    charElement.classList.add(status);
+    if (charElement) {
+        charElement.classList.remove('default', 'correct', 'incorrect');
+        charElement.classList.add(status);
+    } else {
+        console.error(`Element with ID #char-${index} not found`);
+    }
 }
 
 function highlightCurrentCharacter(index) {
@@ -99,7 +103,11 @@ function highlightCurrentCharacter(index) {
     charElements.forEach(el => el.classList.remove('current'));
     if (index < currentWords.join('').length) {
         const currentElement = document.querySelector(`#char-${index}`);
-        currentElement.classList.add('current');
+        if (currentElement) {
+            currentElement.classList.add('current');
+        } else {
+            console.error(`Current element with ID #char-${index} not found`);
+        }
     }
 }
 
