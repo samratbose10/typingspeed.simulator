@@ -31,6 +31,7 @@ document.getElementById('login').addEventListener('submit', async (e) => {
         document.getElementById('restart-btn').style.display = 'block';
 
         startGame();
+        fetchUsers(); 
     } catch (err) {
         console.error('Login error:', err.response.data);
         alert('Login failed: ' + err.response.data.msg);
@@ -44,6 +45,8 @@ const accuracyDisplay = document.getElementById('accuracy');
 const restartBtn = document.getElementById('restart-btn');
 const restartBtnStats = document.getElementById('restart-btn-stats');
 const statsSection = document.getElementById('stats');
+const userList = document.getElementById('user-list');
+const usersContainer = document.getElementById('users');
 
 const sentences = [
     'The quick brown fox jumps over the lazy dog.',
@@ -206,3 +209,19 @@ restartBtnStats.addEventListener('click', () => {
 });
 
 document.addEventListener('DOMContentLoaded', startGame);
+
+async function fetchUsers() {
+    try {
+        const res = await axios.get('http://localhost:5000/api/users/users');
+        const users = res.data;
+        usersContainer.innerHTML = ''; 
+        users.forEach(user => {
+            const li = document.createElement('li');
+            li.textContent = `${user.name} - ${user.email}`;
+            usersContainer.appendChild(li);
+        });
+        userList.style.display = 'block'; 
+    } catch (err) {
+        console.error('Error fetching users:', err);
+    }
+}
