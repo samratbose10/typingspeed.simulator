@@ -1,4 +1,4 @@
-// regrestaionnn thing sam
+
 if (document.getElementById('register')) {
     document.getElementById('register').addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -15,6 +15,25 @@ if (document.getElementById('register')) {
         } catch (err) {
             console.error('Registration error:', err.response.data);
             alert('Registration failed: ' + (err.response.data.msg || 'Unknown error'));
+        }
+    });
+}
+
+
+if (document.getElementById('login')) {
+    document.getElementById('login').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+
+        try {
+            const res = await axios.post('http://localhost:5000/api/users/login', { email, password });
+            console.log('Login successful:', res.data);
+            alert('Login successful!');
+            window.location.href = 'game.html'; // Redirect to game page upon successful login
+        } catch (err) {
+            console.error('Login error:', err.response.data);
+            alert('Login failed: ' + (err.response.data.msg || 'Unknown error'));
         }
     });
 }

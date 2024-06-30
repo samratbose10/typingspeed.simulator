@@ -1,9 +1,18 @@
-/* yooo stylessss*/
+/* yoo somesylish hehe*/
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
 }
 
 .container {
@@ -13,7 +22,7 @@
     padding: 20px;
     max-width: 450px;
     width: 100%;
-    animaton: fadeIn 1s ease-in-out;
+    animation: fadeIn 1s ease-in-out;
 }
 
 h1, h2, h3 {
@@ -55,21 +64,10 @@ button:hover {
     transform: scale(1.05);
 }
 
-#leaderboard {
+p {
     margin-top: 20px;
-}
-
-#leaderboard div {
-    background-color: #f9f9f9;
-    border: 1px solid #dddddd;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
-#leaderboard div p {
-    margin: 0;
-    colour: #333333;
+    text-align: center;
+    color: #555555;
 }
 
 a {
