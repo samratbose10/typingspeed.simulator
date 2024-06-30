@@ -6,15 +6,6 @@
     font-family: 'Arial', sans-serif;
 }
 
-body {
-    background-color: #f0f2f5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    overflow: hidden;
-}
-
 .container {
     background-color: #ffffff;
     border-radius: 10px;
@@ -22,7 +13,7 @@ body {
     padding: 20px;
     max-width: 450px;
     width: 100%;
-    animation: fadeIn 1s ease-in-out;
+    animaton: fadeIn 1s ease-in-out;
 }
 
 h1, h2, h3 {
@@ -78,7 +69,7 @@ button:hover {
 
 #leaderboard div p {
     margin: 0;
-    color: #333333;
+    colour: #333333;
 }
 
 a {

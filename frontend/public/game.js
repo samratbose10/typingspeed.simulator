@@ -52,7 +52,6 @@ function displaySentence() {
         charSpan.classList.add('default');
         textDisplay.appendChild(charSpan);
     });
-    highlightCurrentCharacter(currentIndex); 
 }
 
 function startGame() {
@@ -85,14 +84,14 @@ function calculateStats() {
     const wpm = (wordsTyped / 60) * 60;
     const accuracy = (correctKeystrokes / totalKeystrokes) * 100;
     
-    wpmDisplay.textContent = Math.round(wpm);
+    wpmDisplay.textContent = Math.round();
     accuracyDisplay.textContent = Math.round(accuracy);
 }
 
-function showStats() {
+function showStats() 
     statsSection.style.display = 'block'; 
     textDisplay.style.display = 'none'; 
-}
+
 
 document.addEventListener('keydown', (e) => {
     const typedChar = e.key;
@@ -126,7 +125,7 @@ document.addEventListener('keydown', (e) => {
     currentIndex++;
     highlightCurrentCharacter(currentIndex);
     
-    if (currentIndex === currentSentence.length) {
+    if (current === currentSentence.length) {
         clearInterval(interval);
         calculateStats();
         showStats();
@@ -158,7 +157,6 @@ function highlightCurrentCharacter(index) {
 
 restartBtn.addEventListener('click', () => {
     clearInterval(interval);
-    startGame();
 });
 
 restartBtnStats.addEventListener('click', () => {
