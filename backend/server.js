@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 const userRoutes = require('./routes/user');
+const otpRoutes = require('./routes/otp'); 
 
 const app = express();
 
@@ -20,6 +21,7 @@ mongoose.connect('mongodb://localhost:27017/typing-speed-test', {
   });
 
 app.use('/api/users', userRoutes);
+app.use('/api/otp', otpRoutes); 
 
 app.use(express.static(path.join(__dirname, '../frontend/public')));
 

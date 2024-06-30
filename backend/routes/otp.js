@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer');
 const otpGenerator = require('otp-generator');
-const User = require('../models/User');
 const OTP = require('../models/OTP'); 
 
 let transporter = nodemailer.createTransport({
@@ -16,10 +15,10 @@ let transporter = nodemailer.createTransport({
 router.post('/send-otp', async (req, res) => {
     const { email } = req.body;
 
-    
+
     const otp = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });
 
-
+    
     const otpEntry = new OTP({ email, otp });
     await otpEntry.save();
 
@@ -27,7 +26,7 @@ router.post('/send-otp', async (req, res) => {
     let mailOptions = {
         from: 'your-email@gmail.com',
         to: email,
-        subject: 'Email Verification OTP',
+        subject: 'Login OTP',
         text: `Your OTP code is ${otp}`
     };
 
@@ -46,7 +45,6 @@ router.post('/verify-otp', async (req, res) => {
     const otpEntry = await OTP.findOne({ email, otp });
     if (otpEntry) {
 
-        await User.updateOne({ email }, { isVerified: true });
         await OTP.deleteMany({ email }); 
         res.status(200).send('OTP verified successfully');
     } else {

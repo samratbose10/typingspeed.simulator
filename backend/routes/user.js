@@ -18,7 +18,8 @@ router.post('/register', async (req, res) => {
             name,
             email,
             password,
-            slackId
+            slackId,
+            isVerified: false
         });
 
         const salt = await bcrypt.genSalt(10);
@@ -26,18 +27,9 @@ router.post('/register', async (req, res) => {
 
         await user.save();
 
-        const payload = {
-            user: {
-                id: user.id
-            }
-        };
-
-        jwt.sign(payload, 'secret', { expiresIn: 3600 }, (err, token) => {
-            if (err) throw err;
-            res.json({ token });
-        });
+        res.status(200).send('Registration successful!');
     } catch (err) {
-        console.error(err.message);
+        console.error('Server error during registration:', err.message);
         res.status(500).send('Server error');
     }
 });
@@ -56,18 +48,15 @@ router.post('/login', async (req, res) => {
             return res.status(400).json({ msg: 'Invalid credentials' });
         }
 
-        const payload = {
-            user: {
-                id: user.id
-            }
-        };
-
-        jwt.sign(payload, 'secret', { expiresIn: 3600 }, (err, token) => {
-            if (err) throw err;
-            res.json({ token });
-        });
+        // Send OTP for verification
+        const otpRes = await axios.post('http://localhost:5000/api/otp/send-otp', { email });
+        if (otpRes.status === 200) {
+            res.status(200).send('OTP sent, please verify.');
+        } else {
+            res.status(500).send('Error sending OTP');
+        }
     } catch (err) {
-        console.error(err.message);
+        console.error('Server error during login:', err.message);
         res.status(500).json({ msg: 'Server error' });
     }
 });
@@ -77,7 +66,7 @@ router.get('/users', async (req, res) => {
         const users = await User.find().select('-password');
         res.json(users);
     } catch (err) {
-        console.error(err.message);
+        console.error('Server error fetching users:', err.message);
         res.status(500).send('Server error');
     }
 });
