@@ -24,7 +24,7 @@ app.use('/api/users', userRoutes);
 app.use(express.static(path.join(__dirname, '../frontend/public')));
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/public', 'template.html'));
+    res.sendFile(path.join(__dirname, '../frontend/public', 'register.html'));
 });
 
 const PORT = process.env.PORT || 5000;
