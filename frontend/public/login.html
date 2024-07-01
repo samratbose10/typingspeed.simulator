@@ -11,10 +11,11 @@
 <body>
     <div id="space"></div>
     <div class="container">
-        <div id="initial-text" class="typing-animation">Did I know you?</div>
-        <form id="login-form" class="hidden">
-            <div id="email-container">
-                <p id="email-prompt" class="typing-animation" style="animation-delay: 2s;">Nice to meet you, write your email ID...</p>
+        <div id="initial-text" class="typing-container">
+            <span class="typing">Did I know you?</span>
+        </div>
+        <form id="login-form">
+            <div id="email-container" class="hidden">
                 <input type="email" id="login-email" placeholder="Enter your email" required>
             </div>
             <div id="password-container" class="hidden">
@@ -47,27 +48,18 @@
             const passwordContainer = document.getElementById('password-container');
             const loginButton = document.querySelector('button[type="submit"]');
             const initialText = document.getElementById('initial-text');
-            const emailPrompt = document.getElementById('email-prompt');
 
             emailInput.addEventListener('input', (e) => {
                 if (e.target.value.includes('@')) {
                     passwordContainer.classList.remove('hidden');
-                    loginButton.style.display = 'block';
+                    loginButton.classList.add('show');
                 }
             });
 
-            emailInput.addEventListener('focus', () => {
-                emailContainer.querySelector('p').style.display = 'none';
-                emailInput.style.textAlign = 'left';
-                emailInput.style.paddingLeft = '10px';
-            });
-
             setTimeout(() => {
-                initialText.classList.remove('typing-animation');
-                initialText.innerText = "Nice to meet you, write your email ID...";
-                initialText.classList.add('hidden');
-                emailPrompt.classList.add('typing-animation');
-            }, 4000);
+                emailContainer.classList.remove('hidden');
+                emailInput.focus();
+            }, 7000); 
         });
     </script>
     <script src="script.js"></script>
