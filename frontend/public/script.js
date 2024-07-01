@@ -28,7 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.location.href = 'login.html';
             } catch (err) {
                 console.error('Registration error:', err.response ? err.response.data : err);
-                alert('Registration failed: ' + (err.response.data.msg || 'Unknown error'));
+                const errors = err.response ? err.response.data.errors : [];
+                if (errors && errors.length > 0) {
+                    alert('Registration failed: ' + errors.map(error => error.msg).join(', '));
+                } else {
+                    alert('Registration failed: Unknown error');
+                }
             }
         });
     }
@@ -58,7 +63,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.location.href = 'game.html';
             } catch (err) {
                 console.error('Login error:', err.response ? err.response.data : err);
-                alert('Login failed: ' + (err.response.data.msg || 'Unknown error'));
+                const errors = err.response ? err.response.data.errors : [];
+                if (errors && errors.length > 0) {
+                    alert('Login failed: ' + errors.map(error => error.msg).join(', '));
+                } else {
+                    alert('Login failed: Unknown error');
+                }
             }
         });
     }

@@ -6,15 +6,18 @@ const { check, validationResult } = require('express-validator');
 
 const router = express.Router();
 
-// Register User
+//User
 router.post('/register', [
     check('name', 'Name is required').not().isEmpty(),
     check('email', 'Please include a valid email').isEmail(),
     check('password', 'Password must be 6 or more characters').isLength({ min: 6 }),
     check('recaptchaToken', 'reCAPTCHA token is required').not().isEmpty()
 ], async (req, res) => {
+    console.log('Incoming registration request:', req.body);
+
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+        console.log('Validation errors:', errors.array());
         return res.status(400).json({ errors: errors.array() });
     }
 
@@ -48,18 +51,22 @@ router.post('/register', [
             res.json({ token });
         });
     } catch (err) {
-        console.error(err.message);
+        console.error('Server error:', err.message);
         res.status(500).send('Server error');
     }
 });
+
 
 router.post('/login', [
     check('email', 'Please include a valid email').isEmail(),
     check('password', 'Password is required').exists(),
     check('recaptchaToken', 'reCAPTCHA token is required').not().isEmpty()
 ], async (req, res) => {
+    console.log('Incoming login request:', req.body);
+
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+        console.log('Validation errors:', errors.array());
         return res.status(400).json({ errors: errors.array() });
     }
 
@@ -87,7 +94,7 @@ router.post('/login', [
             res.json({ token });
         });
     } catch (err) {
-        console.error(err.message);
+        console.error('Server error:', err.message);
         res.status(500).send('Server error');
     }
 });
