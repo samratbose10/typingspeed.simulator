@@ -11,14 +11,20 @@
 <body>
     <div id="space"></div>
     <div class="container">
-        <form id="login">
-            <h1>Log In</h1>
-            <input type="email" id="login-email" placeholder="Email" required>
-            <input type="password" id="login-password" placeholder="Password" required>
-            <div class="g-recaptcha" data-sitekey="6LfzTAUqAAAAAAVsS89Q8lxowN7FujLAT1nCTBmC"></div>
-            <button type="submit">Log In</button>
-            <p>Don't have an account? <a href="register.html">Register</a></p>
+        <div id="initial-text" class="typing-animation">Did I know you?</div>
+        <form id="login-form" class="hidden">
+            <div id="email-container">
+                <p id="email-prompt" class="typing-animation" style="animation-delay: 2s;">Nice to meet you, write your email ID...</p>
+                <input type="email" id="login-email" placeholder="Enter your email" required>
+            </div>
+            <div id="password-container" class="hidden">
+                <p id="password-prompt">Oh, I remember you, write your password here...</p>
+                <input type="password" id="login-password" placeholder="Enter your password" required>
+                <div class="g-recaptcha" data-sitekey="6LfzTAUqAAAAAAVsS89Q8lxowN7FujLAT1nCTBmC"></div>
+                <button type="submit">Log In</button>
+            </div>
         </form>
+        <p>Don't have an account? <a href="register.html">Register</a></p>
     </div>
     <script>
         function createStar() {
@@ -34,6 +40,35 @@
         }
 
         setInterval(createStar, 100);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const emailInput = document.getElementById('login-email');
+            const emailContainer = document.getElementById('email-container');
+            const passwordContainer = document.getElementById('password-container');
+            const loginButton = document.querySelector('button[type="submit"]');
+            const initialText = document.getElementById('initial-text');
+            const emailPrompt = document.getElementById('email-prompt');
+
+            emailInput.addEventListener('input', (e) => {
+                if (e.target.value.includes('@')) {
+                    passwordContainer.classList.remove('hidden');
+                    loginButton.style.display = 'block';
+                }
+            });
+
+            emailInput.addEventListener('focus', () => {
+                emailContainer.querySelector('p').style.display = 'none';
+                emailInput.style.textAlign = 'left';
+                emailInput.style.paddingLeft = '10px';
+            });
+
+            setTimeout(() => {
+                initialText.classList.remove('typing-animation');
+                initialText.innerText = "Nice to meet you, write your email ID...";
+                initialText.classList.add('hidden');
+                emailPrompt.classList.add('typing-animation');
+            }, 4000);
+        });
     </script>
     <script src="script.js"></script>
 </body>

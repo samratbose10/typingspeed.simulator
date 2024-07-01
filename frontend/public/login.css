@@ -4,7 +4,7 @@ body, html {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background-color: black;
+    background-color: #222;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -39,12 +39,12 @@ body, html {
 }
 
 .container {
-    background: #1e1e1e;
-    padding: 20px;
-    border-radius: 5px;
+    background: rgba(34, 34, 34, 0.8);
+    padding: 40px;
+    border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     text-align: center;
-    width: 300px;
+    width: 400px;
     z-index: 1;
 }
 
@@ -54,19 +54,19 @@ h1 {
     text-shadow: 0 0 10px #ff4081;
 }
 
-input[type="email"],
-input[type="password"] {
+input {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
-    border: 1px solid #333;
+    border: none;
     border-radius: 5px;
-    background: #2a2a2a;
+    background: #333;
     color: #fff;
+    text-align: center;
+    font-size: 18px;
 }
 
-input[type="email"]:focus,
-input[type="password"]:focus {
+input:focus {
     outline: none;
     border-color: #ff4081;
     box-shadow: 0 0 5px #ff4081;
@@ -81,21 +81,32 @@ button {
     border: none;
     border-radius: 5px;
     box-shadow: 0 0 10px #ff4081;
+    display: none;
+    margin-top: 20px;
 }
 
 button:hover {
     background: darkred;
 }
 
-p {
-    margin-top: 20px;
+.hidden {
+    display: none;
 }
 
-a {
-    color: #ff4081;
-    text-decoration: none;
+.typing-animation {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 3px solid #ff4081;
+    animation: typing 2s steps(20, end), blink-caret 0.5s step-end infinite;
 }
 
-.g-recaptcha {
-    margin-top: 10px;
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: #ff4081 }
 }
