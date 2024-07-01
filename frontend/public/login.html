@@ -8,25 +8,15 @@
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
-    <div class="container" id="container">
-        <div class="form-container sign-in-container">
-            <form id="login">
-                <h1>Log In</h1>
-                <input type="email" id="login-email" placeholder="Email" required>
-                <input type="password" id="login-password" placeholder="Password" required>
-                <div class="g-recaptcha" data-sitekey="6LfN5gQqAAAAACtRUCOxxX1rrHtV310IOK5ez5MS"></div>
-                <button type="submit">Log In</button>
-            </form>
-        </div>
-        <div class="overlay-container">
-            <div class="overlay">
-                <div class="overlay-panel overlay-left">
-                    <h1>Welcome Back!</h1>
-                    <p>To keep connected with us please log in with your personal info</p>
-                    <button class="ghost" id="register">Register</button>
-                </div>
-            </div>
-        </div>
+    <div class="container">
+        <form id="login">
+            <h1>Log In</h1>
+            <input type="email" id="login-email" placeholder="Email" required>
+            <input type="password" id="login-password" placeholder="Password" required>
+            <div class="g-recaptcha" data-sitekey="6LfzTAUqAAAAAAVsS89Q8lxowN7FujLAT1nCTBmC"></div>
+            <button type="submit">Log In</button>
+            <p>Don't have an account? <a href="register.html">Register</a></p>
+        </form>
     </div>
     <script src="script.js"></script>
 </body>
