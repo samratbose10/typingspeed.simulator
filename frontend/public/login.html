@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log In</title>
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="styles.css">
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <div id="space"></div>
-    <div class="container">
+    <div>
         <div id="initial-text" class="typing-container">
             <span class="typing">Did I know you?</span>
         </div>
@@ -52,15 +52,24 @@
             emailInput.addEventListener('input', (e) => {
                 if (e.target.value.includes('@')) {
                     passwordContainer.classList.remove('hidden');
-                    loginButton.classList.add('show');
+                    setTimeout(() => {
+                        passwordContainer.style.opacity = 1;
+                        passwordContainer.style.transform = 'translateY(0)';
+                        loginButton.classList.add('show');
+                    }, 10); 
                 }
             });
 
             setTimeout(() => {
                 emailContainer.classList.remove('hidden');
                 emailInput.focus();
-            }, 7000); 
+            }, 6000); 
         });
+
+        document.getElementById('initial-text').style.marginTop = '100px'; 
+        document.getElementById('email-container').style.marginTop = '1px'; 
+
+        document.getElementById('password-container').style.marginTop = '20px'; 
     </script>
     <script src="script.js"></script>
 </body>

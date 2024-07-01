@@ -4,23 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <link rel="stylesheet" href="register.css">
+    <link rel="stylesheet" href="styles.css">
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <div id="space"></div>
     <div class="container">
-        <form id="register">
-            <h1>Create New Account</h1>
-            <input type="text" id="name" placeholder="Name" required>
-            <input type="email" id="email" placeholder="Email" required>
-            <input type="password" id="password" placeholder="Password" required>
-            <input type="text" id="slackId" placeholder="Slack ID" required>
+        <h1>Create New Account</h1>
+        <form id="register-form">
+            <input type="text" id="name" placeholder="Enter your name" required>
+            <input type="email" id="email" placeholder="Enter your email" required>
+            <input type="password" id="password" placeholder="Enter your password" required>
+            <input type="text" id="slackId" placeholder="Enter your Slack ID" required>
             <div class="g-recaptcha" data-sitekey="6LfzTAUqAAAAAAVsS89Q8lxowN7FujLAT1nCTBmC"></div>
             <button type="submit">Register</button>
-            <p>Already have an account? <a href="login.html">Log in</a></p>
         </form>
+        <p>Already have an account? <a href="login.html">Log in</a></p>
     </div>
     <script>
         function createStar() {
@@ -36,7 +36,30 @@
         }
 
         setInterval(createStar, 100);
+
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const slackId = document.getElementById('slackId').value;
+            const recaptchaResponse = grecaptcha.getResponse();
+
+            if (!recaptchaResponse) {
+                alert('Please complete the reCAPTCHA.');
+                return;
+            }
+
+            try {
+                const res = await axios.post('http://localhost:5000/api/users/register', { name, email, password, slackId, recaptcha: recaptchaResponse });
+                console.log('Registration successful:', res.data);
+                alert('Registration successful! You can now log in.');
+                window.location.href = 'login.html';
+            } catch (err) {
+                console.error('Registration error:', err.response.data);
+                alert('Registration failed: ' + err.response.data.msg);
+            }
+        });
     </script>
-    <script src="script.js"></script>
 </body>
 </html>
