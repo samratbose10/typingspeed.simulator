@@ -1,12 +1,41 @@
-body {
-    font-family: Arial, sans-serif;
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: black;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
-    background: #121212;
-    color: #fff;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+#space {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background-color: white;
+    border-radius: 50%;
+    animation: moveStar linear infinite;
+}
+
+@keyframes moveStar {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(100vh);
+    }
 }
 
 .container {
@@ -16,6 +45,7 @@ body {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     text-align: center;
     width: 300px;
+    z-index: 1;
 }
 
 h1 {

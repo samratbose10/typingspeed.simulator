@@ -9,6 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
+    <div id="space"></div>
     <div class="container">
         <form id="login">
             <h1>Log In</h1>
@@ -19,6 +20,21 @@
             <p>Don't have an account? <a href="register.html">Register</a></p>
         </form>
     </div>
+    <script>
+        function createStar() {
+            const star = document.createElement("div");
+            star.classList.add("star");
+            star.style.left = `${Math.random() * 100}vw`;
+            star.style.animationDuration = `${Math.random() * 2 + 3}s`;
+            document.getElementById("space").appendChild(star);
+
+            setTimeout(() => {
+                star.remove();
+            }, 5000);
+        }
+
+        setInterval(createStar, 100);
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
