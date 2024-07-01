@@ -4,10 +4,11 @@ if (document.getElementById('register')) {
         const name = document.getElementById('name').value
         const email = document.getElementById('email').value
         const password = document.getElementById('password').value
+        const slackId = document.getElementById('slackId').value
         const recaptchaToken = grecaptcha.getResponse()
 
         try {
-            const res = await axios.post('http://localhost:5000/api/users/register', { name, email, password, recaptchaToken })
+            const res = await axios.post('http://localhost:5000/api/users/register', { name, email, password, slackId, recaptchaToken })
             alert('Registration successful! You can now log in.')
             window.location.href = 'login.html'
         } catch (err) {
