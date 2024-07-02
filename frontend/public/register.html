@@ -10,14 +10,13 @@
 </head>
 <body>
     <div id="space"></div>
-    <div id="background-image"></div>
-    <div id="register-content">
-        <h1>Create New Account</h1>
+    <div class="register-container">
+        <h2>Create New Account</h2>
         <form id="register-form">
-            <input type="text" id="name" placeholder="Enter your name" required>
-            <input type="email" id="email" placeholder="Enter your email" required>
-            <input type="password" id="password" placeholder="Enter your password" required>
-            <input type="text" id="slackId" placeholder="Enter your Slack ID" required>
+            <input type="text" id="name" placeholder="Name" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <input type="text" id="slackId" placeholder="Slack ID" required>
             <div class="g-recaptcha" data-sitekey="6LfzTAUqAAAAAAVsS89Q8lxowN7FujLAT1nCTBmC"></div>
             <button type="submit">Register</button>
         </form>
@@ -71,6 +70,5 @@
             });
         });
     </script>
-    <script src="script.js"></script>
 </body>
 </html>

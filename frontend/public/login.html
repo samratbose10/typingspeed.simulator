@@ -10,8 +10,7 @@
 </head>
 <body>
     <div id="space"></div>
-    <div id="background-image"></div>
-    <div id="login-content" class="initial-rotation">
+    <div class="login-container">
         <div id="initial-text" class="typing-container">
             <span class="typing">Did I know you?</span>
         </div>
@@ -49,14 +48,10 @@
             const passwordContainer = document.getElementById('password-container');
             const loginButton = document.querySelector('button[type="submit"]');
             const initialText = document.getElementById('initial-text');
-            const backgroundImage = document.getElementById('background-image');
-            const loginContent = document.getElementById('login-content');
 
             emailInput.addEventListener('input', (e) => {
                 if (e.target.value.includes('@')) {
                     passwordContainer.classList.remove('hidden');
-                    backgroundImage.classList.add('blurred');
-                    loginContent.classList.remove('initial-rotation');
                     setTimeout(() => {
                         passwordContainer.style.opacity = 1;
                         passwordContainer.style.transform = 'translateY(0)';
@@ -71,9 +66,9 @@
             }, 6000); 
         });
 
-        document.getElementById('initial-text').style.marginTop = '20px'; 
-        document.getElementById('email-container').style.marginTop = '10px'; 
 
+        document.getElementById('initial-text').style.marginTop = '100px'; 
+        document.getElementById('email-container').style.marginTop = '10px'; 
         document.getElementById('password-container').style.marginTop = '20px'; 
     </script>
     <script src="script.js"></script>
