@@ -5,12 +5,11 @@ body, html {
     height: 100%;
     overflow: hidden;
     font-family: Arial, sans-serif;
+    background-color: black;
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url('sprigggg.png') no-repeat center center fixed; /* Use the provided image as the background */
-    background-size: cover;
-    color: white;
 }
 
 #space {
@@ -19,6 +18,23 @@ body, html {
     height: 100%;
     overflow: hidden;
     z-index: 0;
+}
+
+#background-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url('sprigggg.png') no-repeat center center;
+    background-size: cover;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#login-content {
+    transform: rotate(-2deg); 
+    transform-origin: center center;
 }
 
 .star {
@@ -47,16 +63,6 @@ body, html {
     to {
         box-shadow: 0 0 20px rgba(255, 255, 255, 1);
     }
-}
-
-.container {
-    background: rgba(34, 34, 34, 0.8);
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    text-align: left; 
-    width: 400px;
-    z-index: 1;
 }
 
 .typing-container {

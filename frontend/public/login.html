@@ -10,22 +10,24 @@
 </head>
 <body>
     <div id="space"></div>
-    <div class="container">
-        <div id="initial-text" class="typing-container">
-            <span class="typing">Did I know you?</span>
+    <div id="background-image">
+        <div id="login-content">
+            <div id="initial-text" class="typing-container">
+                <span class="typing">Did I know you?</span>
+            </div>
+            <form id="login-form">
+                <div id="email-container" class="hidden">
+                    <input type="email" id="login-email" placeholder="Enter your email" required>
+                </div>
+                <div id="password-container" class="hidden">
+                    <p id="password-prompt">Oh, I remember you, write your password here...</p>
+                    <input type="password" id="login-password" placeholder="Enter your password" required>
+                    <div class="g-recaptcha" data-sitekey="6LfzTAUqAAAAAAVsS89Q8lxowN7FujLAT1nCTBmC"></div>
+                    <button type="submit">Log In</button>
+                </div>
+            </form>
+            <p>Don't have an account? <a href="register.html">Register</a></p>
         </div>
-        <form id="login-form">
-            <div id="email-container" class="hidden">
-                <input type="email" id="login-email" placeholder="Enter your email" required>
-            </div>
-            <div id="password-container" class="hidden">
-                <p id="password-prompt">Oh, I remember you, write your password here...</p>
-                <input type="password" id="login-password" placeholder="Enter your password" required>
-                <div class="g-recaptcha" data-sitekey="6LfzTAUqAAAAAAVsS89Q8lxowN7FujLAT1nCTBmC"></div>
-                <button type="submit">Log In</button>
-            </div>
-        </form>
-        <p>Don't have an account? <a href="register.html">Register</a></p>
     </div>
     <script>
         function createStar() {
