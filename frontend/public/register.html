@@ -4,23 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="register.css">
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <div id="space"></div>
-    <div class="container">
-        <h1>Create New Account</h1>
-        <form id="register-form">
-            <input type="text" id="name" placeholder="Enter your name" required>
-            <input type="email" id="email" placeholder="Enter your email" required>
-            <input type="password" id="password" placeholder="Enter your password" required>
-            <input type="text" id="slackId" placeholder="Enter your Slack ID" required>
-            <div class="g-recaptcha" data-sitekey="6LfzTAUqAAAAAAVsS89Q8lxowN7FujLAT1nCTBmC"></div>
-            <button type="submit">Register</button>
-        </form>
-        <p>Already have an account? <a href="login.html">Log in</a></p>
+    <div id="background-container" class="unblurred">
+        <div id="background-image"></div>
+        <div id="black-overlay"></div>
+    </div>
+    <div class="container" id="register-content">
+        <div id="typing-speed">
+            <button class="typing">Typing</button>
+            <button class="speed">Speed</button>
+        </div>
+        <div class="form-container">
+            <h1>Create New Account</h1>
+            <form id="register-form">
+                <input type="text" id="name" placeholder="Enter your name" required>
+                <input type="email" id="email" placeholder="Enter your email" required>
+                <input type="password" id="password" placeholder="Enter your password" required>
+                <input type="text" id="slackId" placeholder="Enter your Slack ID" required>
+                <small class="info">How to get Slack ID: <a href="https://hackclub.slack.com/archives/C0159TSJVH8" target="_blank">https://hackclub.slack.com/archives/C0159TSJVH8</a></small>
+                <div class="g-recaptcha" data-sitekey="6LfzTAUqAAAAAAVsS89Q8lxowN7FujLAT1nCTBmC" required></div>
+                <button type="submit">Register</button>
+            </form>
+            <p>Already have an account? <a href="login.html">Log in</a></p>
+        </div>
     </div>
     <script>
         function createStar() {

@@ -4,12 +4,13 @@ body, html {
     width: 100%;
     height: 100%;
     overflow: hidden;
+    font-family: Arial, sans-serif;
     background-color: black;
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
-    font-family: Arial, sans-serif;
+    flex-direction: column;
 }
 
 #space {
@@ -20,55 +21,98 @@ body, html {
     z-index: 0;
 }
 
-.star {
+#background-container {
     position: absolute;
-    width: 2px;
-    height: 2px;
-    background-color: white;
-    border-radius: 50%;
-    animation: moveStar linear infinite;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: filter 0.5s ease;
 }
 
-@keyframes moveStar {
-    from {
-        transform: translateY(0);
-    }
-    to {
-        transform: translateY(100vh);
-    }
+#background-container.unblurred {
+    filter: none;
 }
 
-.container {
-    background: #1e1e1e;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    text-align: center;
-    width: 300px;
+#background-container.blurred {
+    filter: blur(5px);
+}
+
+#background-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url('reg.png') no-repeat center center;
+    background-size: cover;
+    z-index: 0;
+}
+
+#black-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
     z-index: 1;
 }
 
-h1 {
-    margin-bottom: 20px;
-    color: #ff4081;
-    text-shadow: 0 0 10px #ff4081;
+#register-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-    width: 100%;
+#typing-speed {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#typing-speed .typing,
+#typing-speed .speed {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.typing {
+    background-color: blue;
+    color: white;
+}
+
+.speed {
+    background-color: black;
+    color: white;
+}
+
+.form-container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    max-width: 400px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+input {
+    width: calc(100% - 20px);
     padding: 10px;
     margin: 10px 0;
-    border: 1px solid #333;
+    border: none;
     border-radius: 5px;
-    background: #2a2a2a;
+    background: #333;
     color: #fff;
+    font-size: 18px;
+    text-align: left;
+    padding-left: 10px;
 }
 
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="password"]:focus {
+input:focus {
     outline: none;
     border-color: #ff4081;
     box-shadow: 0 0 5px #ff4081;
@@ -83,21 +127,47 @@ button {
     border: none;
     border-radius: 5px;
     box-shadow: 0 0 10px #ff4081;
-}
-
-button:hover {
-    background: darkred;
-}
-
-p {
     margin-top: 20px;
+    transition: opacity 1s ease-in-out;
 }
 
-a {
-    color: #ff4081;
-    text-decoration: none;
+.info {
+    display: block;
+    font-size: 12px;
+    color: #ccc;
+    margin-top: -10px;
+    margin-bottom: 10px;
 }
 
-.g-recaptcha {
-    margin-top: 10px;
+.info a {
+    color: #ccc;
+    text-decoration: underline;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    animation: moveStar linear infinite, glow 1.5s alternate infinite;
+}
+
+@keyframes moveStar {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(100vh);
+    }
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    }
+    to {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+    }
 }
