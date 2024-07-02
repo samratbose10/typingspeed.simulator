@@ -10,7 +10,11 @@
 </head>
 <body>
     <div id="space"></div>
-    <div class="login-container">
+    <div id="background-container" class="unblurred">
+        <div id="background-image"></div>
+        <div id="black-overlay"></div>
+    </div>
+    <div id="login-content">
         <div id="initial-text" class="typing-container">
             <span class="typing">Did I know you?</span>
         </div>
@@ -27,50 +31,6 @@
         </form>
         <p>Don't have an account? <a href="register.html">Register</a></p>
     </div>
-    <script>
-        function createStar() {
-            const star = document.createElement("div");
-            star.classList.add("star");
-            star.style.left = `${Math.random() * 100}vw`;
-            star.style.animationDuration = `${Math.random() * 2 + 3}s`;
-            document.getElementById("space").appendChild(star);
-
-            setTimeout(() => {
-                star.remove();
-            }, 5000);
-        }
-
-        setInterval(createStar, 100);
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const emailInput = document.getElementById('login-email');
-            const emailContainer = document.getElementById('email-container');
-            const passwordContainer = document.getElementById('password-container');
-            const loginButton = document.querySelector('button[type="submit"]');
-            const initialText = document.getElementById('initial-text');
-
-            emailInput.addEventListener('input', (e) => {
-                if (e.target.value.includes('@')) {
-                    passwordContainer.classList.remove('hidden');
-                    setTimeout(() => {
-                        passwordContainer.style.opacity = 1;
-                        passwordContainer.style.transform = 'translateY(0)';
-                        loginButton.classList.add('show');
-                    }, 10); 
-                }
-            });
-
-            setTimeout(() => {
-                emailContainer.classList.remove('hidden');
-                emailInput.focus();
-            }, 6000); 
-        });
-
-
-        document.getElementById('initial-text').style.marginTop = '100px'; 
-        document.getElementById('email-container').style.marginTop = '10px'; 
-        document.getElementById('password-container').style.marginTop = '20px'; 
-    </script>
     <script src="script.js"></script>
 </body>
 </html>

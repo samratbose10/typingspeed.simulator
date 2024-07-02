@@ -1,3 +1,4 @@
+
 const textDisplay = document.getElementById('text-display');
 const timeLeft = document.getElementById('time-left');
 const wpmDisplay = document.getElementById('wpm');
