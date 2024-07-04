@@ -1,4 +1,3 @@
-
 const textDisplay = document.getElementById('text-display');
 const timeLeft = document.getElementById('time-left');
 const wpmDisplay = document.getElementById('wpm');
@@ -99,12 +98,10 @@ document.addEventListener('keydown', (e) => {
     const typedChar = e.key;
     const targetChar = currentSentence[currentIndex];
 
-    
     if (!typedChar.match(/^[a-zA-Z\s]$/) && typedChar !== 'Backspace') {
         return;
     }
 
-    
     if (typedChar === 'Backspace') {
         if (currentIndex > 0) {
             currentIndex--;
